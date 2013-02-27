@@ -1,5 +1,89 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  center 
+    h1 Playlist Visualizer
+    p 
+      | To lazy to make your own Spotify playlist? The playlist visualizer allows you to make new playlists in a few clicks, 
+      br 
+      | tailored to your music interests and your party, roadtrip, event, or study session. 
+  #canvas.span12.offset2
+    form.form-inline
+    .row
+      .span4
+        center
+          h2
+            | How long is your event?
+        center
+            input.input-small(type='text', placeholder='Hours', name='hrs')
+            br
+            input.input-small(type='text', placeholder='Minutes', name='mins')
+            br
+            input.input-small(type='text', placeholder='Seconds', name='secs')
+      .span1
+      .span3
+          h2
+            | Styles to include
+          label.checkbox
+            input(type='checkbox', name='country')
+            | Country
+          label.checkbox
+            input(type='checkbox', name='rock')
+            | Rock
+          label.checkbox
+            input(type='checkbox', name='alternative')
+            | Alternative
+          label.checkbox
+            input(type='checkbox', name='jazz')
+            | Jazz
+          label.checkbox
+            input(type='checkbox', name='classical')
+            | Classical
+          label.checkbox
+            input(type='checkbox', name='indie')
+            | Indie
+          label.checkbox
+            input(type='checkbox', name='pop')
+            | Pop
+      .span1
+      .span3
+          h2
+            | Moods to include
+          label.checkbox
+            input(type='checkbox', name='happy')
+            | Happy
+          label.checkbox
+            input(type='checkbox', name='angry')
+            | Angry
+          label.checkbox
+            input(type='checkbox', name='sad')
+            | Sad
+          label.checkbox
+            input(type='checkbox', name='relaxing')
+            | Relaxing
+          label.checkbox
+            input(type='checkbox', name='excited')
+            | Excited
+    .row
+      .span2
+      .span2
+          h2
+            | Tempo
+          input.input-small(type='text', placeholder='min - max', name='tempo')
+      .span2
+          h2 
+            | Danceability
+          input.input-small(type='text', placeholder='min - max', name='danceability')
+      .span2
+          h2
+            | Hottness
+          input.input-small(type='text', placeholder='min - max', name='hottness')
+      .span2
+          h2
+            | Popularity
+          input.input-small(type='text', placeholder='min - max', name='popularity')
+    br
+    .row
+      center
+        button.btn(type='submit') Make Playlist
+    br
