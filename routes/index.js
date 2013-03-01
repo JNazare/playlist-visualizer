@@ -29,10 +29,10 @@ exports.new = function(req, res){
 	  min_danceability: D[0],
 	  max_danceability: D[1],
 	  artist_min_familiarity: F[0],
-	  artist_max_familiarity: F[1],
-	  results:10
+	  artist_max_familiarity: F[1]
 	}, function (err, json) {
-	  console.log(json.response);
+		console.log(json.response.songs[0].id);
+	 	console.log(json.response);
 	});
 	res.send('Request received: duration = ' + req.body.duration + 'mins, genres = ' + req.body.genre + ', moods = ' + req.body.mood + ', tempo = ' + req.body.tempo + ', danceability = ' + req.body.dance + ', familiarity = ' + req.body.fam + ', hotness = ' + req.body.hot);
 }
