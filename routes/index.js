@@ -24,12 +24,12 @@ exports.new = function(req, res){
 	  mood: req.body.mood,
 	  min_tempo: T[0],
 	  max_tempo:T[1],
-	  song_max_hotttnesss: H[0],
-	  song_min_hotttnesss: H[1],
+	  song_min_hotttnesss: H[0],
+	  song_max_hotttnesss: H[1],
 	  min_danceability: D[0],
 	  max_danceability: D[1],
-	  artist_max_familiarity: F[0],
-	  artist_min_familiarity: F[1],
+	  artist_min_familiarity: F[0],
+	  artist_max_familiarity: F[1],
 	  results:10
 	}, function (err, json) {
 	  console.log(json.response);
