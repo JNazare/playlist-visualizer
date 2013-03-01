@@ -1,89 +1,110 @@
 extends layout
 
 block content
+  link(rel='stylesheet', href='http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css')
+  script
+    $(function() {
+      $( "#tempo-range" ).slider({
+        range: true,
+        min: 20,
+        max: 300,
+        values: [ 75, 150 ],
+        slide: function( event, ui ) {
+          $( "#tempo" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        }
+      });
+      $( "#tempo" ).val( $( "#tempo-range" ).slider( "values", 0 ) +
+        " - " + $( "#tempo-range" ).slider( "values", 1 ) );
+    });
+
   center 
     h1 Playlist Visualizer
     p 
-      | To lazy to make your own Spotify playlist? The playlist visualizer allows you to make new playlists in a few clicks, 
+      | Too lazy to make your own Spotify playlist? The playlist visualizer allows you to make new playlists in a few clicks, 
       br 
       | tailored to your music interests and your party, roadtrip, event, or study session. 
   #canvas.span12.offset2
-    form.form-inline
-    .row
-      .span4
-        center
-          h2
-            | How long is your event?
-        center
-            input.input-small(type='text', placeholder='Hours', name='hrs')
+    form(method='post', action='/new')
+      .row
+        .span4
+          center
+            h2
+              | How long would you like your playlist to be?
+          .row-fluid
+            .span8.offset2
+              input(type='range', min='0', max='300', value='150', step='5', onchange='showValue(this.value)', name='duration')
             br
-            input.input-small(type='text', placeholder='Minutes', name='mins')
+            #range.span4.offset5 2 hrs,<br>30 mins
+              script(type='text/javascript')
+                function showValue(newValue) {
+                  var hours = Math.floor(newValue / 60);
+                  var minutes = newValue - (hours * 60);
+                  if(hours.length == 1) hours = '0' + hours;
+                  if(minutes.length == 1) minutes = '0' + minutes;
+                  document.getElementById("range").innerHTML = hours + ' hrs,<br>' + minutes + ' mins';
+                }
+        .span4
+            h2 Styles to include
+            label.checkbox
+              input(type='checkbox', name='genre', value='country')
+              | Country
+            label.checkbox
+              input(type='checkbox', name='genre', value='rock')
+              | Rock
+            label.checkbox
+              input(type='checkbox', name='genre', value='alternative')
+              | Alternative
+            label.checkbox
+              input(type='checkbox', name='genre', value='jazz')
+              | Jazz
+            label.checkbox
+              input(type='checkbox', name='genre', value='classical')
+              | Classical
+            label.checkbox
+              input(type='checkbox', name='genre', value='indie')
+              | Indie
+            label.checkbox
+              input(type='checkbox', name='genre', value='pop')
+              | Pop
+        .span4
+            h2
+              | Moods to include
+            label.checkbox
+              input(type='checkbox', name='mood', value='happy')
+              | Happy
+            label.checkbox
+              input(type='checkbox', name='mood', value='angry')
+              | Angry
+            label.checkbox
+              input(type='checkbox', name='mood', value='sad')
+              | Sad
+            label.checkbox
+              input(type='checkbox', name='mood', value='relax')
+              | Relaxing
+            label.checkbox
+              input(type='checkbox', name='mood', value='energetic')
+              | Energetic
+      .row
+        .span2
+            h2 Tempo
+            #tempo-range
             br
-            input.input-small(type='text', placeholder='Seconds', name='secs')
-      .span1
-      .span3
-          h2
-            | Styles to include
-          label.checkbox
-            input(type='checkbox', name='country')
-            | Country
-          label.checkbox
-            input(type='checkbox', name='rock')
-            | Rock
-          label.checkbox
-            input(type='checkbox', name='alternative')
-            | Alternative
-          label.checkbox
-            input(type='checkbox', name='jazz')
-            | Jazz
-          label.checkbox
-            input(type='checkbox', name='classical')
-            | Classical
-          label.checkbox
-            input(type='checkbox', name='indie')
-            | Indie
-          label.checkbox
-            input(type='checkbox', name='pop')
-            | Pop
-      .span1
-      .span3
-          h2
-            | Moods to include
-          label.checkbox
-            input(type='checkbox', name='happy')
-            | Happy
-          label.checkbox
-            input(type='checkbox', name='angry')
-            | Angry
-          label.checkbox
-            input(type='checkbox', name='sad')
-            | Sad
-          label.checkbox
-            input(type='checkbox', name='relaxing')
-            | Relaxing
-          label.checkbox
-            input(type='checkbox', name='excited')
-            | Excited
-    .row
-      .span2
-      .span2
-          h2
-            | Tempo
-          input.input-small(type='text', placeholder='min - max', name='tempo')
-      .span2
-          h2 
-            | Danceability
-          input.input-small(type='text', placeholder='min - max', name='danceability')
-      .span2
-          h2
-            | Hottness
-          input.input-small(type='text', placeholder='min - max', name='hottness')
-      .span2
-          h2
-            | Popularity
-          input.input-small(type='text', placeholder='min - max', name='popularity')
-    br
-    .row
-      center
-        button.btn(type='submit') Make Playlist
-    br
+            center
+              input.input-mini#tempo(type='text', style='border: 0;', name = 'tempo', readonly)
+        .span3.offset1
+            h2 
+              | Danceability
+            input.input-small(type='text', placeholder='min - max', name='dance')
+        .span3
+            h2
+              | Hottness
+            input.input-small(type='text', placeholder='min - max', name='hot')
+        .span3
+            h2
+              | Familiarity
+            input.input-small(type='text', placeholder='min - max', name='fam')
+      br
+      .row
+        center
+          button.btn(type='submit') Make Playlist
+      br
