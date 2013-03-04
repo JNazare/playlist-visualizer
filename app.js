@@ -7,6 +7,7 @@ var express = require('express')
   , routes = require('./routes')
   , http = require('http')
   , path = require('path')
+  , rdio = require('./routes/rdio')
   , echojs = require('echojs');
 
 var app = express();
@@ -35,6 +36,7 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.post('/new', routes.new);
+app.get('/rdio', rdio.index)
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
