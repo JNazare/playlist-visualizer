@@ -4,103 +4,156 @@ block content
   link(rel='stylesheet', href='http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css')
   script
     $(function() {
-      $( "#tempo-range" ).slider({
-        range: true,
-        min: 20,
-        max: 180,
-        values: [ 75, 100 ],
-        slide: function( event, ui ) {
-          $( "#tempo" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-        }
+      $( ".tempo-slide" ).each(function(i) {
+        $(this).slider({
+          value: 100,
+          min: 80,
+          max: 150,
+          range: "min",
+          animate: true,
+          orientation: "vertical",
+          slide: function (event, ui) {
+             $("#tempoVal" + (i+1)).val( $("#tempo" + (i+1)).slider("value") );
+          }
+        });
       });
-      $( "#tempo" ).val( $( "#tempo-range" ).slider( "values", 0 ) +
-        " - " + $( "#tempo-range" ).slider( "values", 1 ) );
+      $( ".vert-slide" ).each(function(i) {
+        $(this).slider({
+          value: 0.5,
+          min: 0,
+          max: 1,
+          range: "min",
+          animate: true,
+          step: 0.05,
+          orientation: "vertical",
+          slide: function (event, ui) {
+             $("#vertVal" + (i+1)).val( $("#vert" + (i+1)).slider("value") );
+          }
+        });
+      });
     });
 
-  center 
-    h1 Playlist Visualizer
-    p 
-      | Too lazy to make your own Spotify playlist? The playlist visualizer allows you to make new playlists in a few clicks, 
-      br 
-      | tailored to your music interests and your party, roadtrip, event, or study session. 
-  #canvas.span12.offset2
-    form(method='post', action='/new')
-      .row
-        .span4
-          center
-            h2
-              | How long would you like your playlist to be?
+  .container-fluid
+    .row-fluid
+      .span8.offset2
+        center 
+          h1 Playlist Generator
+          p Too lazy to make your own playlist? The playlist generator allows you to make new playlists in a few clicks, tailored to your music interests and your party, roadtrip, event, or study session.
+    .row-fluid
+      .span10.offset1#canvas
+        form(method='post', action='/new')
           .row-fluid
-            .span8.offset2
-              input(type='range', min='0', max='300', value='150', step='5', onchange='showValue(this.value)', name='duration')
+            .span4
+              center
+                h2
+                  | How long would you like your playlist to be?
+              .row-fluid
+                center
+                  input(type='range', min='0', max='150', value='60', step='5', onchange='showValue(this.value)', name='duration')
+                br
+              .row-fluid
+                #range.span8.offset2
+                  center
+                    | 1 hr,<br>0 mins
+                  script(type='text/javascript')
+                    function showValue(newValue) {
+                      var hours = Math.floor(newValue / 60);
+                      var minutes = newValue - (hours * 60);
+                      if (hours == 1) {
+                        document.getElementById("range").innerHTML = '<center>' + hours + ' hr,<br>' + minutes + ' mins</center>';
+                      } else {
+                        document.getElementById("range").innerHTML = '<center>' + hours + ' hrs,<br>' + minutes + ' mins</center>';
+                      }
+                    }
+            .span4
+              center
+                h2 Genres to include
+                select(multiple='multiple', name='genre', size='7')
+                  option(value='alternative')
+                    | Alternative
+                  option(value='classical')
+                    | Classical
+                  option(value='country')
+                    | Country
+                  option(value='electronic')
+                    | Electronic
+                  option(value='hip hop')
+                    | Hip Hop
+                  option(value='indie')
+                    | Indie
+                  option(value='jazz')
+                    | Jazz
+                  option(value='pop')
+                    | Pop
+                  option(value='rock')
+                    | Rock
+            .span4
+              center
+                h2 Types of music to include
+                select(multiple='multiple', name='mood', size='7')
+                  option(value='angry')
+                    | Angry
+                  option(value='energetic')
+                    | Energetic
+                  option(value='happy')
+                    | Happy
+                  option(value='mellow')
+                    | Mellow
+                  option(value='party music')
+                    | Party Music
+                  option(value='relax')
+                    | Relaxing
+                  option(value='sad')
+                    | Sad
+          .row-fluid
             br
-            #range.span4.offset5 2 hrs,<br>30 mins
-              script(type='text/javascript')
-                function showValue(newValue) {
-                  var hours = Math.floor(newValue / 60);
-                  var minutes = newValue - (hours * 60);
-                  if(hours.length == 1) hours = '0' + hours;
-                  if(minutes.length == 1) minutes = '0' + minutes;
-                  document.getElementById("range").innerHTML = hours + ' hrs,<br>' + minutes + ' mins';
-                }
-        .span4
-            h2 Styles to include
-            label.checkbox
-              input(type='checkbox', name='genre', value='country')
-              | Country
-            label.checkbox
-              input(type='checkbox', name='genre', value='rock')
-              | Rock
-            label.checkbox
-              input(type='checkbox', name='genre', value='alternative')
-              | Alternative
-            label.checkbox
-              input(type='checkbox', name='genre', value='jazz')
-              | Jazz
-            label.checkbox
-              input(type='checkbox', name='genre', value='classical')
-              | Classical
-            label.checkbox
-              input(type='checkbox', name='genre', value='indie')
-              | Indie
-            label.checkbox
-              input(type='checkbox', name='genre', value='pop')
-              | Pop
-        .span4
-            h2
-              | Moods to include
-            label.checkbox
-              input(type='checkbox', name='mood', value='happy')
-              | Happy
-            label.checkbox
-              input(type='checkbox', name='mood', value='angry')
-              | Angry
-            label.checkbox
-              input(type='checkbox', name='mood', value='sad')
-              | Sad
-            label.checkbox
-              input(type='checkbox', name='mood', value='relax')
-              | Relaxing
-            label.checkbox
-              input(type='checkbox', name='mood', value='energetic')
-              | Energetic
-      .row
-        .span2
-            h2 Tempo
-            #tempo-range
-            br
+          .row-fluid
+            .span4
+              center
+                h2 Tempo
+                  .row-fluid
+                    .span4.offset2
+                      .row-fluid.tempo-slide#tempo1
+                      .row-fluid
+                        center
+                          input.input-mini.minInput#tempoVal1(type='text', name = 'tempo1', value=100, readonly)
+                    .span4
+                      .row-fluid.tempo-slide#tempo2
+                      .row-fluid
+                        center
+                          input.input-mini.minInput#tempoVal2(type='text', name = 'tempo2', value=100, readonly)
+                br
+            .span4
+              center
+                h2 Danceability
+                  .row-fluid
+                    .span4.offset2
+                      .row-fluid.vert-slide#vert1
+                      .row-fluid
+                        center
+                          input.input-mini.minInput#vertVal1(type='text', name = 'dance1', value=0.5, readonly)
+                    .span4
+                      .row-fluid.vert-slide#vert2
+                      .row-fluid
+                        center
+                          input.input-mini.minInput#vertVal2(type='text', name = 'dance2', value=0.5, readonly)
+            .span4
+              center
+                h2 Hottness
+                  .row-fluid
+                    .span4.offset2
+                      .row-fluid.vert-slide#vert3
+                      .row-fluid
+                        center
+                          input.input-mini.minInput#vertVal3(type='text', name = 'hot1', value=0.5, readonly)
+                    .span4
+                      .row-fluid.vert-slide#vert4
+                      .row-fluid
+                        center
+                          input.input-mini.minInput#vertVal4(type='text', name = 'hot2', value=0.5, readonly)
+          br
+          .row
             center
-              input.input-mini#tempo(type='text', style='border: 0;', name = 'tempo', readonly)
-        .span4.offset2
-            h2 
-              | Danceability
-            input.input-small(type='text', placeholder='min - max', name='dance')
-        .span4
-            h2
-              | Hottness
-            input.input-small(type='text', placeholder='min - max', name='hot')
-      br
-      .row
-        center
-          button.btn(type='submit') Make Playlist
-      br
+              button.btn(type='submit')
+                h2 Make Playlist
+          br
