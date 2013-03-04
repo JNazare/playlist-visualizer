@@ -20,7 +20,6 @@ exports.new = function(req, res){
 	var T = req.body.tempo.split(" - ");
 	var D = req.body.dance.split(" - ");
 	var H = req.body.hot.split(" - ");
-	var F = req.body.fam.split(" - ");
 	echo('song/search').get({
 		style: req.body.genre,
 		mood: req.body.mood,
@@ -30,14 +29,14 @@ exports.new = function(req, res){
 		song_max_hotttnesss: Number(H[0])+0.2,
 		min_danceability: Number(D[0])-0.2,
 		max_danceability: Number(D[0])+0.2,
-		artist_min_familiarity: Number(F[0])-0.2,
-		artist_max_familiarity: Number(F[0])+0.2,
 		bucket: ['tracks', 'id:rdio-US','audio_summary'],
 	}, function (err, json) {
+		console.log('response 1', json.response);
 		var i = 0;
 		var plist = [];
 		while (dur>limit/2) {
 			if(json.response.songs[i].tracks != [] && json.response.songs[i].tracks[0]){
+				console.log('i= ', i);
 				dur -= json.response.songs[i].audio_summary.duration;
 				var j = (json.response.songs[i].tracks[0].foreign_id).split(":");
 				var rdio_id = j[2]
@@ -46,6 +45,7 @@ exports.new = function(req, res){
 			// plist.push('id: ' + json.response.songs[i].id + ' duration: ' + json.response.songs[i].audio_summary.duration + ' tempo: ' + json.response.songs[i].audio_summary.tempo);
 			i++;
 		}
+		console.log('starting search 2');
 		echo('song/search').get({
 			style: req.body.genre,
 			mood: req.body.mood,
@@ -55,10 +55,9 @@ exports.new = function(req, res){
 			song_max_hotttnesss: Number(H[1])+0.2,
 			min_danceability: Number(D[1])-0.2,
 			max_danceability: Number(D[1])+0.2,
-			artist_min_familiarity: Number(F[1])-0.2,
-			artist_max_familiarity: Number(F[1])+0.2,
 			bucket: ['tracks', 'id:rdio-US','audio_summary'],
 		}, function (err, json) {
+			console.log('response 2', json.response);
 			var i = 0;
 			while (dur>60) {
 				if(json.response.songs[i].tracks != [] && json.response.songs[i].tracks[0]){
