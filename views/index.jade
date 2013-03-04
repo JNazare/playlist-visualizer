@@ -7,8 +7,8 @@ block content
       $( "#tempo-range" ).slider({
         range: true,
         min: 20,
-        max: 300,
-        values: [ 75, 150 ],
+        max: 180,
+        values: [ 75, 100 ],
         slide: function( event, ui ) {
           $( "#tempo" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
         }
