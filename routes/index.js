@@ -63,8 +63,10 @@ exports.new = function(req, res){
 				i++;
 			}
 			console.log(plist);
+			plist = JSON.stringify(plist);
 			// Replace res.send below with res.render for the rdio page
-			res.send('See terminal for ids');
+			//res.send('See terminal for ids');
+			res.render('rdio', {ids: plist});
 		});
 	});
 }

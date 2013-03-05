@@ -4,10 +4,14 @@ html
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js')
     script(src='../rdio/jquery.rdio.js')
     script(type='text/javascript')
+      var jsondata = !{ids};
+      var ct = 0;
+      var max_ct = jsondata.length;
       var duration = 1; // track the duration of the currently playing track
       $(document).ready(function() {
       $('#api').bind('ready.rdio', function() {
-      $(this).rdio().play('a171827');
+      $(this).rdio().play(jsondata[ct]);
+      ct = ct + 1;
       });
       $('#api').bind('playingTrackChanged.rdio', function(e, playingTrack, sourcePosition) {
       if (playingTrack) {
@@ -33,10 +37,20 @@ html
       // this is a valid playback token for localhost.
       // but you should go get your own for your own domain.
       $('#api').rdio('GAlNi78J_____zlyYWs5ZG02N2pkaHlhcWsyOWJtYjkyN2xvY2FsaG9zdEbwl7EHvbylWSWFWYMZwfc=');
-      $('#previous').click(function() { $('#api').rdio().previous(); });
+      $('#previous').click(function() { 
+        if (ct > -1){
+          $('#api').rdio().play(jsondata[ct]); 
+          ct = ct - 1;
+        }
+      });
       $('#play').click(function() { $('#api').rdio().play(); });
       $('#pause').click(function() { $('#api').rdio().pause(); });
-      $('#next').click(function() { $('#api').rdio().next(); });
+      $('#next').click(function() {
+        if (ct < max_ct){ 
+          $('#api').rdio().play(jsondata[ct]); 
+          ct = ct + 1;
+        }
+      });
       });
   body
     #api
@@ -60,3 +74,4 @@ html
         button#play |>
         button#pause ||
         button#next >>
+
