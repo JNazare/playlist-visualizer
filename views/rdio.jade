@@ -10,8 +10,8 @@ html
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js')
     script(src='../rdio/jquery.rdio.js')
     script(type='text/javascript')
-      var CONSUMER_KEY = 'gz7sffh5a4tveqren24e4ydu'
-      var CONSUMER_SECRET = 'hAD2DBg6tH'
+      var CONSUMER_KEY = 'gz7sffh5a4tveqren24e4ydu';
+      var CONSUMER_SECRET = 'hAD2DBg6tH';
       var jsondata = !{ids};
       var ct = 0;
       var max_ct = jsondata.length;
@@ -44,8 +44,9 @@ html
         });
         // this is a valid playback token for localhost.
         // but you should go get your own for your own domain.
-        // $('#api').rdio(CONSUMER_KEY, CONSUMER_SECRET, {});
-        $('#api').rdio('GAlNi78J_____zlyYWs5ZG02N2pkaHlhcWsyOWJtYjkyN2xvY2FsaG9zdEbwl7EHvbylWSWFWYMZwfc=');
+        // 'GAlNi78J_____zlyYWs5ZG02N2pkaHlhcWsyOWJtYjkyN2xvY2FsaG9zdEbwl7EHvbylWSWFWYMZwfc='
+        var playbackToken = $('#api').rdio.getPlaybackToken(CONSUMER_KEY, CONSUMER_SECRET, {});
+        $('#api').rdio(playbackToken);
         $('#previous').click(function() { 
           if (ct > -1){
             $('#api').rdio().play(jsondata[ct]); 

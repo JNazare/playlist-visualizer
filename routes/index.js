@@ -65,6 +65,7 @@ exports.rdio = function(req, res){
 				i++;
 			}
 			plist = JSON.stringify(plist);
+			console.log(plist);
 			res.render('rdio', {ids: plist, songs: songInfo});
 		});
 	});
