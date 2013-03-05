@@ -1,7 +1,7 @@
 var echojs = require('echojs');
 
 var echo = echojs({
-  key: process.env.ECHONEST_KEY // 'FILDTEOIK2HBORODV'
+  key: 'FILDTEOIK2HBORODV' //process.env.ECHONEST_KEY
 });
 
 exports.index = function(req, res){
