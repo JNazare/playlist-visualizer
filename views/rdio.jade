@@ -1,6 +1,12 @@
 html
   head
     title jquery.rdio test
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+    link(href='http://fonts.googleapis.com/css?family=Titillium+Web:700', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Lato:300', rel='stylesheet', type='text/css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='http://code.jquery.com/jquery-1.9.1.js')
+    script(src='http://code.jquery.com/ui/1.10.1/jquery-ui.js')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js')
     script(src='../rdio/jquery.rdio.js')
     script(type='text/javascript')
@@ -54,22 +60,26 @@ html
       });
   body
     #api
-    img#art(src='', height='200', width='200', style='float: left; margin-right: 20px;')
+    img#art(src='', height='300', width='300', style='float: left; margin-right: 30px;')
     div
       div
-        b Track: 
+        #labeled Track: 
         span#track
+      br
       div
-        b Album: 
+        #labeled Album: 
         span#album
+      br
       div
-        b Artist: 
+        #labeled Artist: 
         span#artist
+      br
       div
-        b Position: 
+        #labeled Position: 
         span(style='display: inline-block; width: 200px; border: 1px solid black;')
           span#position(style='display: inline-block; background-color: #666;')  
       div
+        br
         button#previous <<
         button#play |>
         button#pause ||
