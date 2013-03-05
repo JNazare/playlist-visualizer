@@ -1,9 +1,9 @@
 html
   head
-    title jquery.rdio test
+    title New playlist from Playlist Generator
     link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
     link(href='http://fonts.googleapis.com/css?family=Titillium+Web:700', rel='stylesheet', type='text/css')
-    link(href='http://fonts.googleapis.com/css?family=Lato:300', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Lato:300,700', rel='stylesheet', type='text/css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='http://code.jquery.com/jquery-1.9.1.js')
     script(src='http://code.jquery.com/ui/1.10.1/jquery-ui.js')
@@ -17,74 +17,86 @@ html
       var max_ct = jsondata.length;
       var duration = 1; // track the duration of the currently playing track
       $(document).ready(function() {
-      $('#api').bind('ready.rdio', function() {
-      $(this).rdio().play(jsondata[ct]);
-      ct = ct + 1;
-      });
-      $('#api').bind('playingTrackChanged.rdio', function(e, playingTrack, sourcePosition) {
-      if (playingTrack) {
-      duration = playingTrack.duration;
-      $('#art').attr('src', playingTrack.icon);
-      $('#track').text(playingTrack.name);
-      $('#album').text(playingTrack.album);
-      $('#artist').text(playingTrack.artist);
-      }
-      });
-      $('#api').bind('positionChanged.rdio', function(e, position) {
-      $('#position').css('width', Math.floor(100*position/duration)+'%');
-      });
-      $('#api').bind('playStateChanged.rdio', function(e, playState) {
-      if (playState == 0) { // paused
-      $('#play').show();
-      $('#pause').hide();
-      } else {
-      $('#play').hide();
-      $('#pause').show();
-      }
-      });
-      // this is a valid playback token for localhost.
-      // but you should go get your own for your own domain.
-      // $('#api').rdio(CONSUMER_KEY, CONSUMER_SECRET, {});
-      $('#api').rdio('GAlNi78J_____zlyYWs5ZG02N2pkaHlhcWsyOWJtYjkyN2xvY2FsaG9zdEbwl7EHvbylWSWFWYMZwfc=');
-      $('#previous').click(function() { 
-        if (ct > -1){
-          $('#api').rdio().play(jsondata[ct]); 
-          ct = ct - 1;
-        }
-      });
-      $('#play').click(function() { $('#api').rdio().play(); });
-      $('#pause').click(function() { $('#api').rdio().pause(); });
-      $('#next').click(function() {
-        if (ct < max_ct){ 
-          $('#api').rdio().play(jsondata[ct]); 
+        $('#api').bind('ready.rdio', function() {
+          $(this).rdio().play(jsondata[ct]);
           ct = ct + 1;
-        }
-      });
+        });
+        $('#api').bind('playingTrackChanged.rdio', function(e, playingTrack, sourcePosition) {
+          if (playingTrack) {
+            duration = playingTrack.duration;
+            $('#art').attr('src', playingTrack.icon);
+            $('#track').text(playingTrack.name);
+            $('#album').text(playingTrack.album);
+            $('#artist').text(playingTrack.artist);
+          }
+        });
+        $('#api').bind('positionChanged.rdio', function(e, position) {
+          $('#position').css('width', Math.floor(100*position/duration)+'%');
+        });
+        $('#api').bind('playStateChanged.rdio', function(e, playState) {
+          if (playState == 0) { // paused
+            $('#play').show();
+            $('#pause').hide();
+          } else {
+            $('#play').hide();
+            $('#pause').show();
+          }
+        });
+        // this is a valid playback token for localhost.
+        // but you should go get your own for your own domain.
+        // $('#api').rdio(CONSUMER_KEY, CONSUMER_SECRET, {});
+        $('#api').rdio('GAlNi78J_____zlyYWs5ZG02N2pkaHlhcWsyOWJtYjkyN2xvY2FsaG9zdEbwl7EHvbylWSWFWYMZwfc=');
+        $('#previous').click(function() { 
+          if (ct > -1){
+            $('#api').rdio().play(jsondata[ct]); 
+            ct = ct - 1;
+          }
+        });
+        $('#play').click(function() { $('#api').rdio().play(); });
+        $('#pause').click(function() { $('#api').rdio().pause(); });
+        $('#next').click(function() {
+          if (ct < max_ct){ 
+            $('#api').rdio().play(jsondata[ct]); 
+            ct = ct + 1;
+          }
+        });
       });
   body
-    #api
-    img#art(src='', height='265', width='265', style='float: left; margin-right: 30px;')
-    div
-      div
-        #labeled Track: 
-        span#track
-      br
-      div
-        #labeled Album: 
-        span#album
-      br
-      div
-        #labeled Artist: 
-        span#artist
-      br
-      div
-        #labeled Position: 
-        span(style='display: inline-block; width: 200px; border: 1px solid black;')
-          span#position(style='display: inline-block; background-color: #666;')  
-      div
-        br
-        button#previous <<
-        button#play |>
-        button#pause ||
-        button#next >>
-
+    .container-fluid
+      .row-fluid
+        center
+          h1 Your playlist has been created
+          br
+      .row-fluid
+        .span6.offset1
+          #api
+          img#art(src='', height='265', width='265', style='float: left; margin-right: 30px;')
+          div
+            div
+              #labeled Track: 
+              span#track
+            br
+            div
+              #labeled Album: 
+              span#album
+            br
+            div
+              #labeled Artist: 
+              span#artist
+            br
+            div
+              #labeled Position: 
+              span(style='display: inline-block; width: 200px; border: 1px solid black;')
+                span#position(style='display: inline-block; background-color: #666;')  
+            div
+              br
+              button#previous <<
+              button#play |>
+              button#pause ||
+              button#next >>
+        .span4
+          #labeled Songs:
+          .row-fluid
+            each song in songs
+              div(style='padding:3px;') #{song[1]} - 
+                b #{song[0]}

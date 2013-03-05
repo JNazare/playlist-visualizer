@@ -41,7 +41,7 @@ block content
           p Too lazy to make your own playlist? The playlist generator allows you to make new playlists in a few clicks, tailored to your music interests and your party, roadtrip, event, or study session.
     .row-fluid
       .span10.offset1#canvas
-        form(method='post', action='/new')
+        form(method='post', action='/rdio')
           .row-fluid
             .span4
               center
@@ -106,54 +106,62 @@ block content
                   option(value='sad')
                     | Sad
           .row-fluid
-            br
-          .row-fluid
             .span4
               center
                 h2 Tempo
-                  .row-fluid
-                    .span4.offset2
-                      .row-fluid.tempo-slide#tempo1
-                      .row-fluid
-                        center
-                          input.input-mini.minInput#tempoVal1(type='text', name = 'tempo1', value=100, readonly)
-                    .span4
-                      .row-fluid.tempo-slide#tempo2
-                      .row-fluid
-                        center
-                          input.input-mini.minInput#tempoVal2(type='text', name = 'tempo2', value=100, readonly)
-                br
+                .row-fluid
+                  .span4.offset2
+                    .row-fluid.tempo-slide#tempo1
+                    .row-fluid
+                      center
+                        input.input-mini.minInput#tempoVal1(type='text', name = 'tempo1', value=100, readonly)
+                    .row-fluid
+                      p (First half of playlist)
+                  .span4
+                    .row-fluid.tempo-slide#tempo2
+                    .row-fluid
+                      center
+                        input.input-mini.minInput#tempoVal2(type='text', name = 'tempo2', value=100, readonly)
+                    .row-fluid
+                      p (Second half of playlist)
             .span4
               center
                 h2 Danceability
-                  .row-fluid
-                    .span4.offset2
-                      .row-fluid.vert-slide#vert1
-                      .row-fluid
-                        center
-                          input.input-mini.minInput#vertVal1(type='text', name = 'dance1', value=0.5, readonly)
-                    .span4
-                      .row-fluid.vert-slide#vert2
-                      .row-fluid
-                        center
-                          input.input-mini.minInput#vertVal2(type='text', name = 'dance2', value=0.5, readonly)
+                .row-fluid
+                  .span4.offset2
+                    .row-fluid.vert-slide#vert1
+                    .row-fluid
+                      center
+                        input.input-mini.minInput#vertVal1(type='text', name = 'dance1', value=0.5, readonly)
+                    .row-fluid
+                      p (First half of playlist)
+                  .span4
+                    .row-fluid.vert-slide#vert2
+                    .row-fluid
+                      center
+                        input.input-mini.minInput#vertVal2(type='text', name = 'dance2', value=0.5, readonly)
+                    .row-fluid
+                      p (Second half of playlist)
             .span4
               center
                 h2 Hottness
-                  .row-fluid
-                    .span4.offset2
-                      .row-fluid.vert-slide#vert3
-                      .row-fluid
-                        center
-                          input.input-mini.minInput#vertVal3(type='text', name = 'hot1', value=0.5, readonly)
-                    .span4
-                      .row-fluid.vert-slide#vert4
-                      .row-fluid
-                        center
-                          input.input-mini.minInput#vertVal4(type='text', name = 'hot2', value=0.5, readonly)
+                .row-fluid
+                  .span4.offset2
+                    .row-fluid.vert-slide#vert3
+                    .row-fluid
+                      center
+                        input.input-mini.minInput#vertVal3(type='text', name = 'hot1', value=0.5, readonly)
+                    .row-fluid
+                      p (First half of playlist)
+                  .span4
+                    .row-fluid.vert-slide#vert4
+                    .row-fluid
+                      center
+                        input.input-mini.minInput#vertVal4(type='text', name = 'hot2', value=0.5, readonly)
+                    .row-fluid
+                      p (Second half of playlist)
           br
-          .row
+          .row-fluid
             center
               button.btn(type='submit')
                 h2 Make Playlist
-          br
