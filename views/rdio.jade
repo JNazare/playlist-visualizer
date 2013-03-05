@@ -44,9 +44,8 @@ html
       });
       // this is a valid playback token for localhost.
       // but you should go get your own for your own domain.
-      // var tok = $('#api').getPlaybackToken(domain='http://playlist-maker.herokuapp.com/')
-      // console.log(tok);
-      $('#api').rdio(CONSUMER_KEY, CONSUMER_SECRET, {});
+      // $('#api').rdio(CONSUMER_KEY, CONSUMER_SECRET, {});
+      $('#api').rdio('GAlNi78J_____zlyYWs5ZG02N2pkaHlhcWsyOWJtYjkyN2xvY2FsaG9zdEbwl7EHvbylWSWFWYMZwfc=');
       $('#previous').click(function() { 
         if (ct > -1){
           $('#api').rdio().play(jsondata[ct]); 
